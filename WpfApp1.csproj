@@ -105,18 +105,43 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Account.cs" />
+    <Compile Include="Choose_type.xaml.cs">
+      <DependentUpon>Choose_type.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreditCard.cs" />
+    <Compile Include="CreditCardWindow.xaml.cs">
+      <DependentUpon>CreditCardWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DebitCard.cs" />
+    <Compile Include="DebitCardWindow.xaml.cs">
+      <DependentUpon>DebitCardWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SavingAccountWindow.xaml.cs">
+      <DependentUpon>SavingAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SavingsAccount.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WorkplaceWindow.xaml.cs">
       <DependentUpon>WorkplaceWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Choose_type.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreditCardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebitCardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +159,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SavingAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

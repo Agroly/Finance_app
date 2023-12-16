@@ -5,14 +5,14 @@ using System.Windows;
 
 namespace WpfApp1
 {
-    public class CreditCard : DebitCard
+    public class SavingAccount : Account
     {
         public decimal Procent { get; set; }
 
-        public CreditCard(decimal balance, string cvv, string cardNumber, string paymentSystem, string expiryDate, decimal procent)
-            : base(balance, cvv, cardNumber, paymentSystem, expiryDate)
+        public SavingAccount(decimal balance, decimal procent)
+            : base(balance)
         {
-            AccountTypeId = 2; 
+            AccountTypeId = 3;
             Procent = procent;
         }
         private JsonDocument ToJson()
@@ -21,18 +21,14 @@ namespace WpfApp1
 
             var json = JsonSerializer.Serialize(new
             {
-                CVV,
-                CardNumber,
-                PaymentSystem,
-                ExpiryDate,
                 Procent
             });
             return JsonDocument.Parse(json); ;
         }
-        public void AddCreditCard(int userId)
+        public void AddSavingAccount(int userId)
         {
             AddAccount(userId);
-            
+
             JsonDocument jsonParams = this.ToJson();
 
             string connectionString = "Host=localhost;Username=postgres;Password=xaethei7raiTeeso;Database=kursach;Port=5432;";
@@ -61,4 +57,5 @@ namespace WpfApp1
             }
         }
     }
+
 }

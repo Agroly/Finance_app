@@ -32,10 +32,8 @@ namespace WpfApp1
         }
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            // Здесь добавьте код для открытия окна добавления счета
-            // Например, вы можете создать новое окно или использовать существующее
-            // и передать текущего пользователя
-            
+            Choose_type choose_Type = new Choose_type(currentUser);
+            choose_Type.Show();
         }
 
     }

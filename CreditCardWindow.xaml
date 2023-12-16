@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApp1.CreditCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Credit Card Information" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Информация о кредитной карте" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="txtCardNumberLabel" Text="Номер карты" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtCardNumber" Text="1234567890123456" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <TextBlock x:Name="txtCVVLabel" Text="CVV" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtCVV" Text="123" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <TextBlock x:Name="txtPaymentSystemLabel" Text="Система платежей" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtPaymentSystem" Text="Visa" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <TextBlock x:Name="txtExpiryDateLabel" Text="Дата истекания работы" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtExpiryDate" Text="12/23" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <TextBlock x:Name="txtProcentLabel" Text="Процентная ставка" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtProcent" Text="10" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <Button Content="Добавить" Click="AddButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
