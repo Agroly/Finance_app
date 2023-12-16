@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="WorkplaceWindow" WindowState="Maximized">
+        Title="WorkplaceWindow" Width="1920" Height="1080" WindowState="Maximized">
     <Grid>
         <StackPanel>
             <TextBlock Text="{Binding GreetingText}" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
             <Button Content="Добавить счет" Width="200" Height="50" Click="AddAccountButton_Click"/>
+            <ListBox x:Name="lstAccounts" ItemsSource="{Binding AccountViewModels}" DisplayMemberPath="Details" Width="1920" Height="800" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,10,0,0"/>
         </StackPanel>
     </Grid>
 </Window>

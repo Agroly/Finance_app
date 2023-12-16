@@ -83,7 +83,7 @@ namespace WpfApp1
                                 string firstName = reader["FirstName"].ToString();
                                 string middleName = reader["MiddleName"].ToString();
                                 int age = Convert.ToInt32(reader["Age"]);
-                                MessageBox.Show("Вход успешен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                              
                                 this.Close();
                                 User currentuser = new User(username, lastName, firstName, middleName, age);
                                 WorkplaceWindow workplaceWindow = new WorkplaceWindow(currentuser);

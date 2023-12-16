@@ -14,12 +14,18 @@ namespace WpfApp1
         public decimal Balance { get; set; }
 
         public int AccountId { get; set; }
+
           
 
         public Account(decimal balance)
         {
             Balance = balance;
         }
+        public Account()
+        {
+ 
+        }
+
         public void AddAccount(int UserId)
         {
             // Строка подключения к базе данных PostgreSQL

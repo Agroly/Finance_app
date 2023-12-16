@@ -1,40 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для WorkplaceWindow.xaml
-    /// </summary>
     public partial class WorkplaceWindow : Window
     {
         private User currentUser;
+
+        public ObservableCollection<AccountViewModel> AccountViewModels { get; set; }
+
         public WorkplaceWindow(User СurrentUser)
         {
             InitializeComponent();
             this.currentUser = СurrentUser;
             DataContext = this;
+
+            // Инициализируем коллекцию для отображения счетов
+            AccountViewModels = new ObservableCollection<AccountViewModel>();
+
+            // Инициализируем DataContext перед вызовом LoadAndDisplayAccounts
+            DataContext = this;
+
+            // Загружаем и отображаем счета текущего пользователя
+            LoadAndDisplayAccounts();
         }
-        public string GreetingText
+
+        private void LoadAndDisplayAccounts()
         {
-            get { return $"Здравствуйте, {currentUser.FirstName} {currentUser.LastName}!"; }
+            // Получаем счета пользователя из базы данных
+            List<Account> userAccounts = GetAccountsForUser(User.GetUserIdByUsername(currentUser.Username));
+
+            // Создаем коллекцию для отображения в ListBox
+            foreach (var account in userAccounts)
+            {
+                AccountViewModels.Add(new AccountViewModel(account));
+            }
         }
+
+        // Метод для получения счетов пользователя из базы данных
+        private List<Account> GetAccountsForUser(int userId)
+        {
+            return Database.GetAccountsForUser(userId);
+        }
+
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
         {
             Choose_type choose_Type = new Choose_type(currentUser);
-            choose_Type.Show();
-        }
+            choose_Type.ShowDialog();
 
+            // После добавления счета перезагружаем и отображаем счета
+            LoadAndDisplayAccounts();
+        }
     }
+
 }
+

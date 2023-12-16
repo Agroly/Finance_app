@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Debit Card Information" Height="330" Width="400" WindowStartupLocation="CenterScreen">
+         Height="330" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="20">
             <TextBlock Text="Информация о дебетовой карте" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>

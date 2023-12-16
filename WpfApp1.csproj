@@ -105,6 +105,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Account.cs" />
+    <Compile Include="AccountViewModel.cs" />
     <Compile Include="Choose_type.xaml.cs">
       <DependentUpon>Choose_type.xaml</DependentUpon>
     </Compile>
@@ -112,6 +113,7 @@
     <Compile Include="CreditCardWindow.xaml.cs">
       <DependentUpon>CreditCardWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="DebitCard.cs" />
     <Compile Include="DebitCardWindow.xaml.cs">
       <DependentUpon>DebitCardWindow.xaml</DependentUpon>
