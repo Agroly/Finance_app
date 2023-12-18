@@ -58,5 +58,37 @@ namespace WpfApp1
 
             return accounts;
         }
+        public static bool TopUpBalanceByAccount(int accountId, decimal amount)
+        {
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Создаем SQL-запрос для обновления баланса счета по его ID
+                    string updateQuery = "UPDATE accounts SET Balance = Balance + @Amount WHERE AccountId = @AccountId";
+
+                    using (NpgsqlCommand command = new NpgsqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Amount", amount);
+                        command.Parameters.AddWithValue("@AccountId", accountId);
+
+                        // Выполняем запрос
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Если была хотя бы одна успешно обновленная строка, возвращаем true
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при пополнении баланса по ID: {ex.Message}");
+            }
+
+            // Если возникла ошибка, возвращаем false
+            return false;
+        }
     }
 }

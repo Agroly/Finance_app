@@ -10,10 +10,11 @@ namespace WpfApp1
     public class AccountViewModel
     {
         public string Details { get; set; }
-
+        public Account Account { get; set; }
         public AccountViewModel(Account account)
         {
             Details = $"Баланс: {account.Balance:C2}, Тип счета: {GetAccountTypeName(account.AccountTypeId)}";
+            Account = account ;
         }
 
         private string GetAccountTypeName(int accountTypeId)

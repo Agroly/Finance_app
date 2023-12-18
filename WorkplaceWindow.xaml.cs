@@ -30,6 +30,8 @@ namespace WpfApp1
         {
             // Получаем счета пользователя из базы данных
             List<Account> userAccounts = GetAccountsForUser(User.GetUserIdByUsername(currentUser.Username));
+            
+            AccountViewModels.Clear();
 
             // Создаем коллекцию для отображения в ListBox
             foreach (var account in userAccounts)
@@ -51,6 +53,23 @@ namespace WpfApp1
 
             // После добавления счета перезагружаем и отображаем счета
             LoadAndDisplayAccounts();
+        }
+        private void AddBalanceButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Получаем выбранный счет из ListBox
+            AccountViewModel selectedAccountViewModel = (AccountViewModel)lstAccounts.SelectedItem;
+
+            if (selectedAccountViewModel != null)
+            {
+                // Здесь передаем выбранный счет в метод, который обработает пополнение баланса
+                 TopUpBalance window = new TopUpBalance(selectedAccountViewModel);
+                 window.ShowDialog();
+                 LoadAndDisplayAccounts();
+            }
+            else
+            {
+                MessageBox.Show("Выберите счет для пополнения баланса.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 

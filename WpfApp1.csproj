@@ -128,6 +128,9 @@
       <DependentUpon>SavingAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SavingsAccount.cs" />
+    <Compile Include="TopUpBalance.xaml.cs">
+      <DependentUpon>TopUpBalance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="WorkplaceWindow.xaml.cs">
       <DependentUpon>WorkplaceWindow.xaml</DependentUpon>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SavingAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TopUpBalance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
