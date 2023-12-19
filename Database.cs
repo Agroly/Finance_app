@@ -42,10 +42,10 @@ namespace WpfApp1
                                     Balance = Convert.ToDecimal(reader["Balance"]),
                                     AccountTypeId = Convert.ToInt32(reader["AccountTypeId"]),
                                 };
-                                
+
 
                                 accounts.Add(account);
-                                
+
                             }
                         }
                     }
@@ -88,6 +88,37 @@ namespace WpfApp1
             }
 
             // Если возникла ошибка, возвращаем false
+            return false;
+        }
+        public static bool TransferFunds(Account senderAccount, Account recipientAccount, decimal amount)
+        {
+            // Проверяем, что у отправителя достаточно средств для перевода
+            if (senderAccount.Balance >= amount)
+            {
+                // Уменьшаем баланс отправителя
+                bool senderSuccess = TopUpBalanceByAccount(senderAccount.AccountId, -amount);
+
+                if (senderSuccess)
+                {
+                    // Если уменьшение баланса отправителя прошло успешно,
+                    // увеличиваем баланс получателя
+                    bool recipientSuccess = TopUpBalanceByAccount(recipientAccount.AccountId, amount);
+
+                    // Если увеличение баланса получателя также успешно,
+                    // возвращаем true
+                    if (recipientSuccess)
+                        return true;
+                    else
+                    {
+                        // В случае неудачи при увеличении баланса получателя,
+                        // восстанавливаем баланс отправителя
+                        TopUpBalanceByAccount(senderAccount.AccountId, amount);
+                    }
+                }
+            }
+
+            // Если что-то пошло не так или у отправителя недостаточно средств,
+            // возвращаем false
             return false;
         }
     }

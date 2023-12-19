@@ -9,15 +9,24 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="{Binding GreetingText}" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
                 <Button Content="Добавить счет" Width="200" Height="50" Click="AddAccountButton_Click"/>
                 <Button Content="Пополнить баланс" Width="200" Height="50" Click="AddBalanceButton_Click" Margin="10,0,0,0"/>
+                <Button Content="Отправитель" Width="200" Height="50" Click="SelectSenderButton_Click" Margin="10,0,0,0"/>
+                <Button Content="Получатель" Width="200" Height="50" Click="SelectReceiverButton_Click" Margin="10,0,0,0"/>
+                <Button Content="Перевод" Width="200" Height="50" Click="TransferButton_Click" Margin="10,0,0,0"/>
             </StackPanel>
-            <ListBox x:Name="lstAccounts" ItemsSource="{Binding AccountViewModels}" Width="1920" Height="800" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,10,0,0">
+            <ListBox x:Name="lstAccounts" 
+         ItemsSource="{Binding AccountViewModels}" 
+         Width="1920" 
+         Height="800" 
+         HorizontalContentAlignment="Stretch" 
+         VerticalContentAlignment="Stretch" 
+         Margin="0,10,0,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="0,5">
-                            <TextBlock Text="{Binding Details}" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Details}"  />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
