@@ -20,10 +20,12 @@ namespace WpfApp1
     public partial class TopUpBalance : Window
     {
         private AccountViewModel account;
-        public TopUpBalance(AccountViewModel selectedaccount)
+        private Database db;
+        public TopUpBalance(AccountViewModel selectedaccount, Database db)
         {
             InitializeComponent();
             this.account = selectedaccount;
+            this.db = db;
            
         }
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -32,7 +34,7 @@ namespace WpfApp1
             if (decimal.TryParse(txtAmount.Text, out decimal amount))
             {
                 // Вызываем метод для пополнения баланса аккаунта
-                bool success = Database.TopUpBalanceByAccount(account.Account.AccountId, amount);
+                bool success = db.TopUpBalanceByAccount(account.Account.AccountId, amount);
 
                 if (success)
                 {

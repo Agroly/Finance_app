@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +15,17 @@ using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для Choose_type.xaml
-    /// </summary>
     public partial class Choose_type : Window
     {
         public User currentuser;
-        public Choose_type(User currentuser)
+        private Database db;
+        private ObservableCollection<AccountViewModel> AccountViewModels { get; set; }
+        public Choose_type(User currentuser, Database db, ObservableCollection<AccountViewModel> accountViewModels)
         {
             InitializeComponent();
             this.currentuser = currentuser;
+            this.db = db;
+            AccountViewModels = accountViewModels;
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -43,19 +45,21 @@ namespace WpfApp1
                 switch (selectedAccountType)
                 {
                     case "Дебетовая карта":
-                        DebitCardWindow debitCardWindow = new DebitCardWindow(currentuser);
+                        DebitCardWindow debitCardWindow = new DebitCardWindow(currentuser, db);
                         debitCardWindow.ShowDialog();
+                        AccountViewModels.Add(new AccountViewModel(debitCardWindow.debitCard));
                         break;
 
                     case "Кредитная карта":
-                        CreditCardWindow creditCardWindow = new CreditCardWindow(currentuser);
+                        CreditCardWindow creditCardWindow = new CreditCardWindow(currentuser, db);
                         creditCardWindow.ShowDialog();
+                        AccountViewModels.Add(new AccountViewModel(creditCardWindow.creditCard));
                         break;
                     case "Накопительный счет":
-                        SavingAccountWindow savingAccountWindow = new SavingAccountWindow(currentuser);
+                        SavingAccountWindow savingAccountWindow = new SavingAccountWindow(currentuser, db);
                         savingAccountWindow.ShowDialog();
+                        AccountViewModels.Add(new AccountViewModel(savingAccountWindow.savingAccount));
                         break;
-                    // Добавьте обработку других типов счетов здесь, если необходимо
 
                     default:
                         MessageBox.Show("Неизвестный тип счета!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);

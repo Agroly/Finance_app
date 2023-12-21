@@ -7,11 +7,14 @@ namespace WpfApp1
     public partial class CreditCardWindow : Window
     {
         private User currentuser;
+        private Database db;
+        public CreditCard creditCard;
 
-        public CreditCardWindow(User currentUser)
+        public CreditCardWindow(User currentUser, Database db)
         {
             InitializeComponent();
             this.currentuser = currentUser;
+            this.db = db;
         }
 
         private void RemoveText(object sender, RoutedEventArgs e)
@@ -38,8 +41,8 @@ namespace WpfApp1
                 }
 
                 // Здесь создаем экземпляр CreditCard и добавляем его в базу данных
-                CreditCard creditCard = new CreditCard(0, cvv, cardNumber, paymentSystem, expiryDate, procent);
-                creditCard.AddCreditCard(User.GetUserIdByUsername(currentuser.Username));
+                creditCard = new CreditCard(0, db, cvv, cardNumber, paymentSystem, expiryDate, procent);
+                db.AddCreditCard(db.GetUserIdByUsername(currentuser.Username),creditCard);
 
                 MessageBox.Show("Кредитная карта успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

@@ -7,11 +7,14 @@ namespace WpfApp1
     public partial class SavingAccountWindow : Window
     {
         private User currentuser;
+        private Database database;
+        public SavingAccount savingAccount;
 
-        public SavingAccountWindow(User currentUser)
+        public SavingAccountWindow(User currentUser, Database database)
         {
             InitializeComponent();
             this.currentuser = currentUser;
+            this.database = database;
         }
 
         private void RemoveText(object sender, RoutedEventArgs e)
@@ -28,8 +31,8 @@ namespace WpfApp1
                 decimal procent = decimal.Parse(txtProcent.Text);
 
                 // Здесь создаем экземпляр SavingAccount и добавляем его в базу данных
-                SavingAccount savingAccount = new SavingAccount(balance, procent);
-                savingAccount.AddSavingAccount(User.GetUserIdByUsername(currentuser.Username));
+                savingAccount = new SavingAccount(balance, database, procent);
+                database.AddSavingAccount(database.GetUserIdByUsername(currentuser.Username), savingAccount);
 
                 MessageBox.Show("Накопительный счет успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

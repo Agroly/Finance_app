@@ -16,16 +16,16 @@ using YourNamespace;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
         private MainWindow mainWindow;
-        public LoginWindow(MainWindow mainWindow)
+
+        public Database database;
+        public LoginWindow(MainWindow mainWindow, Database database)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.database = database;
         }
         public User CurrentUser { get; private set; } // Текущий пользователь
         private void RemoveText(object sender, RoutedEventArgs e)
@@ -47,64 +47,18 @@ namespace WpfApp1
             string password = txtPassword.Password;
 
             // Выполняем вход
-            AuthenticateUser(username, password);
-
-            
-           
+            AuthenticateUser(username, password);        
         }
 
         private void AuthenticateUser(string username, string password)
         {
-            // Строка подключения к базе данных PostgreSQL
-            string connectionString = "Host=localhost;Username=postgres;Password=xaethei7raiTeeso;Database=kursach;Port=5432;";
-
-            try
+            this.Close();
+            this.CurrentUser = database.AuthenticateUser(username, password);
+            if (this.CurrentUser != null)
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    // Создаем SQL-запрос для проверки пользователя
-                    string selectQuery = "SELECT Username, LastName, FirstName, MiddleName, Age FROM Users WHERE Username = @Username AND Password = @Password";
-
-                    using (NpgsqlCommand command = new NpgsqlCommand(selectQuery, connection))
-                    {
-                        // Передаем параметры в запрос
-                        command.Parameters.AddWithValue("@Username", username);
-                        command.Parameters.AddWithValue("@Password", password);
-
-                        using (NpgsqlDataReader reader = command.ExecuteReader())
-                        {
-                            // Проверяем, есть ли данные
-                            if (reader.Read())
-                            {
-                                // Извлекаем данные из результата запроса и создаем объект User
-                                string lastName = reader["LastName"].ToString();
-                                string firstName = reader["FirstName"].ToString();
-                                string middleName = reader["MiddleName"].ToString();
-                                int age = Convert.ToInt32(reader["Age"]);
-                              
-                                this.Close();
-                                User currentuser = new User(username, lastName, firstName, middleName, age);
-                                WorkplaceWindow workplaceWindow = new WorkplaceWindow(currentuser);
-                                workplaceWindow.Show();
-                                mainWindow.Close();
-                                return;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Неверный логин или пароль. Пожалуйста, попробуйте снова.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Обработка ошибок подключения к базе данных
-                MessageBox.Show($"Ошибка при проверке пользователя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                WorkplaceWindow workplaceWindow = new WorkplaceWindow(CurrentUser, database);
+                workplaceWindow.Show();
+                mainWindow.Close();
             }
         }
     }

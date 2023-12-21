@@ -17,9 +17,11 @@ namespace WpfApp1
 {
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        private Database db;
+        public RegistrationWindow(Database db)
         {
             InitializeComponent();
+            this.db = db;
         }
         private void RemoveText(object sender, RoutedEventArgs e)
         {
@@ -40,7 +42,7 @@ namespace WpfApp1
 
 
             if (string.IsNullOrEmpty(newUser.Username) || string.IsNullOrEmpty(newUser.Password) ||
-    string.IsNullOrEmpty(newUser.LastName) || string.IsNullOrEmpty(newUser.FirstName))
+                string.IsNullOrEmpty(newUser.LastName) || string.IsNullOrEmpty(newUser.FirstName))
             {
                 MessageBox.Show("Заполните все обязательные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -65,7 +67,7 @@ namespace WpfApp1
             }
 
             // Выполняем регистрацию
-            if (RegisterUser(newUser))
+            if (db.RegisterUser(newUser))
             {
                 MessageBox.Show("Регистрация успешна!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close(); // Закрываем окно регистрации после успешной регистрации
@@ -73,42 +75,6 @@ namespace WpfApp1
             else
             {
                 MessageBox.Show("Не удалось выполнить регистрацию. Пожалуйста, попробуйте снова.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private bool RegisterUser(User user)
-        {
-            try
-            {
-                // Создаем подключение к базе данных
-                using (NpgsqlConnection connection = new NpgsqlConnection("Host=localhost;Username=postgres;Password=xaethei7raiTeeso;Database=kursach;Port=5432;"))
-                {
-                    connection.Open();
-
-                    // Создаем SQL-запрос для вставки нового пользователя
-                    string insertQuery = "INSERT INTO Users (Username, Password, LastName, FirstName, MiddleName, Age) " +
-                                         "VALUES (@Username, @Password, @LastName, @FirstName, @MiddleName, @Age)";
-
-                    using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
-                    {
-                        // Передаем параметры в запрос
-                        command.Parameters.AddWithValue("@Username", user.Username);
-                        command.Parameters.AddWithValue("@Password", user.Password);
-                        command.Parameters.AddWithValue("@LastName", user.LastName);
-                        command.Parameters.AddWithValue("@FirstName", user.FirstName);
-                        command.Parameters.AddWithValue("@MiddleName", user.MiddleName);
-                        command.Parameters.AddWithValue("@Age", user.Age);
-
-                        // Выполняем SQL-запрос и возвращаем результат
-                        int rowsAffected = command.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при регистрации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
             }
         }
     }

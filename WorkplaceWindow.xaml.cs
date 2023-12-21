@@ -7,24 +7,22 @@ namespace WpfApp1
     public partial class WorkplaceWindow : Window
     {
         private User currentUser;
+        private Database database;
 
         public ObservableCollection<AccountViewModel> AccountViewModels { get; set; }
 
         public AccountViewModel Sender { get; set; }
 
         public AccountViewModel Receiver { get; set; }
-        public WorkplaceWindow(User СurrentUser)
+        public WorkplaceWindow(User СurrentUser, Database database)
         {
             InitializeComponent();
             this.currentUser = СurrentUser;
             DataContext = this;
-
-            // Инициализируем коллекцию для отображения счетов
+            this.database = database;
             AccountViewModels = new ObservableCollection<AccountViewModel>();
-
             // Инициализируем DataContext перед вызовом LoadAndDisplayAccounts
             DataContext = this;
-
             // Загружаем и отображаем счета текущего пользователя
             LoadAndDisplayAccounts();
         }
@@ -32,10 +30,9 @@ namespace WpfApp1
         private void LoadAndDisplayAccounts()
         {
             // Получаем счета пользователя из базы данных
-            List<Account> userAccounts = GetAccountsForUser(User.GetUserIdByUsername(currentUser.Username));
-            
-            AccountViewModels.Clear();
+            List<Account> userAccounts = GetAccountsForUser(database.GetUserIdByUsername(currentUser.Username));
 
+            AccountViewModels.Clear();
             // Создаем коллекцию для отображения в ListBox
             foreach (var account in userAccounts)
             {
@@ -46,15 +43,13 @@ namespace WpfApp1
         // Метод для получения счетов пользователя из базы данных
         private List<Account> GetAccountsForUser(int userId)
         {
-            return Database.GetAccountsForUser(userId);
+            return database.GetAccountsForUser(userId);
         }
 
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            Choose_type choose_Type = new Choose_type(currentUser);
+            Choose_type choose_Type = new Choose_type(currentUser, database, AccountViewModels);
             choose_Type.ShowDialog();
-
-            // После добавления счета перезагружаем и отображаем счета
             LoadAndDisplayAccounts();
         }
         private void AddBalanceButton_Click(object sender, RoutedEventArgs e)
@@ -65,7 +60,7 @@ namespace WpfApp1
             if (selectedAccountViewModel != null)
             {
                 // Здесь передаем выбранный счет в метод, который обработает пополнение баланса
-                 TopUpBalance window = new TopUpBalance(selectedAccountViewModel);
+                 TopUpBalance window = new TopUpBalance(selectedAccountViewModel, database);
                  window.ShowDialog();
                  LoadAndDisplayAccounts();
             }
@@ -127,11 +122,13 @@ namespace WpfApp1
             if (Sender != null && Receiver != null)
             {
                 // Создаем диалог для ввода суммы перевода
-                TransferDialog transferDialog = new TransferDialog(this.Sender, this.Receiver);
+                TransferDialog transferDialog = new TransferDialog(this.Sender, this.Receiver, database);
 
                 // Показываем диалог и получаем результат
                 bool? result = transferDialog.ShowDialog();
                 if (result == true) { LoadAndDisplayAccounts(); }
+                else MessageBox.Show("Перевод не сработал", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             }
 
 

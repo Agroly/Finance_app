@@ -17,10 +17,13 @@ namespace WpfApp1
     public partial class DebitCardWindow : Window
     {
         private User currentuser;
-        public DebitCardWindow(User CurrentUser)
+        private Database db;
+        public DebitCard debitCard;
+        public DebitCardWindow(User CurrentUser, Database db)
         {
             InitializeComponent(); 
             this.currentuser = CurrentUser;
+            this.db = db;
         }
 
         private void RemoveText(object sender, RoutedEventArgs e)
@@ -46,8 +49,8 @@ namespace WpfApp1
                 }
 
                 // Здесь создаем экземпляр DebitCard и добавляем его в базу данных
-                DebitCard debitCard = new DebitCard(0, cvv, cardNumber, paymentSystem, expiryDate);
-                debitCard.AddDebitCard(User.GetUserIdByUsername(currentuser.Username));
+                debitCard = new DebitCard(0,db, cvv, cardNumber, paymentSystem, expiryDate);
+                db.AddDebitCard(db.GetUserIdByUsername(currentuser.Username),debitCard);
 
                 MessageBox.Show("Дебетовая карта успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
