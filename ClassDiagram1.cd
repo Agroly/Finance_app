@@ -1,2 +1,177 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WpfApp1.Account">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Account" Hidden="true" />
+      <Property Name="db" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQACAAAggAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.AccountViewModel">
+    <Position X="15.75" Y="4.25" Width="1.5" />
+    <Members>
+      <Method Name="GetAccountTypeName" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEg=</HashCode>
+      <FileName>AccountViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.App" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.Choose_type" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAASAAAAAAAEAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Choose_type.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.CreditCard">
+    <Position X="1" Y="5.5" Width="1.5" />
+    <Members>
+      <Method Name="CreditCard" Hidden="true" />
+      <Method Name="ToJson" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>CreditCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.CreditCardWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAASAAAAAAIAAAEAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>CreditCardWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.Database">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <Members>
+      <Method Name="Database" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAAAACAQAAABQAAAEAAEAAAQAAAGAAAAAAA=</HashCode>
+      <FileName>Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.DebitCard">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <Members>
+      <Method Name="DebitCard" Hidden="true" />
+      <Method Name="ToJson" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>DebitCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.DebitCardWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAASAAAAAAIAAgAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>DebitCardWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.LoginWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAIAAAABAAAIAAAAABAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>LoginWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.RegistrationWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAQAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RegistrationWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.SavingAccountWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAABAAAICAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>SavingAccountWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.SavingAccount">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <Members>
+      <Method Name="SavingAccount" Hidden="true" />
+      <Method Name="ToJson" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>SavingsAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.TopUpBalance" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAAQAAAAAA=</HashCode>
+      <FileName>TopUpBalance.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.TransferDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAQAAAAAAAABAAAAAAEAAIAAAAAAAAIAAA=</HashCode>
+      <FileName>TransferDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.User">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <Members>
+      <Method Name="User" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAUAQAAAAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.WorkplaceWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAgAAAAADAAAAESAAAIAAEAAAAAABAAAAIAAA=</HashCode>
+      <FileName>WorkplaceWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="YourNamespace.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp1.Properties.Resources" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp1.Properties.Settings" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

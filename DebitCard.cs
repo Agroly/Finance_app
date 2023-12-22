@@ -36,7 +36,7 @@ namespace WpfApp1
                 ExpiryDate
             });
 
-            return JsonDocument.Parse(json); ;
+            return JsonDocument.Parse(json); 
         }
     }     
 }

@@ -1,14 +1,9 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using YourNamespace;
+
 
 namespace WpfApp1
 {
@@ -26,7 +21,7 @@ namespace WpfApp1
             try
             {
                 // Создаем SQL-запрос для проверки пользователя
-                string selectQuery = "SELECT Username, LastName, FirstName, MiddleName, Age FROM Users WHERE Username = @Username AND Password = @Password";
+                string selectQuery = "SELECT Id, Username, LastName, FirstName, MiddleName, Age FROM Users WHERE Username = @Username AND Password = @Password";
 
                 // Создаем команду с использованием открытого подключения
                 using (NpgsqlCommand command = new NpgsqlCommand(selectQuery, connection))
@@ -42,12 +37,14 @@ namespace WpfApp1
                         if (reader.Read())
                         {
                             // Извлекаем данные из результата запроса и создаем объект User
+                            int userId = Convert.ToInt32(reader["Id"]);
                             string lastName = reader["LastName"].ToString();
                             string firstName = reader["FirstName"].ToString();
                             string middleName = reader["MiddleName"].ToString();
                             int age = Convert.ToInt32(reader["Age"]);
 
-                            User currentUser = new User(username, lastName, firstName, middleName, age);
+                            User currentUser = new User( username, lastName, firstName, middleName, age);
+                            currentUser.UserId = userId;
 
                             // Закрываем reader после использования
                             reader.Close();
@@ -211,6 +208,7 @@ namespace WpfApp1
                         // Выполняем SQL-запрос и возвращаем результат
                         int rowsAffected = command.ExecuteNonQuery();
                         return rowsAffected > 0;
+                        
                     }
             }
             catch (Exception ex)
@@ -219,36 +217,7 @@ namespace WpfApp1
                 return false;
             }
         }
-        public int GetUserIdByUsername(string username)
-        {
-            try
-            {
-                    // Создаем SQL-запрос для получения Id пользователя по логину
-                    string selectQuery = "SELECT Id FROM Users WHERE Username = @Username";
-
-                    using (NpgsqlCommand command = new NpgsqlCommand(selectQuery, connection))
-                    {
-                        // Передаем параметры в запрос
-                        command.Parameters.AddWithValue("@Username", username);
-
-                        // Выполняем SQL-запрос и получаем результат
-                        object result = command.ExecuteScalar();
-
-                        // Если результат не null, преобразуем его в int и возвращаем
-                        if (result != null && int.TryParse(result.ToString(), out int userId))
-                        {
-                            return userId;
-                        }
-                    }
-            }
-            catch (Exception ex)
-            {
-                // Обработка ошибок подключения к базе данных
-                MessageBox.Show($"Ошибка при получении Id пользователя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            return -1; // Если пользователя не найдено или произошла ошибка
-        }
+       
         public void AddDebitCard(int userId, DebitCard account)
         {
             int accountId = AddAccount(userId, account);

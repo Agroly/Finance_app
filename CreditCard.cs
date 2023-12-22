@@ -1,7 +1,4 @@
-﻿using Npgsql;
-using System;
-using System.Text.Json;
-using System.Windows;
+﻿using System.Text.Json;
 
 namespace WpfApp1
 {

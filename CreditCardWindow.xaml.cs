@@ -9,6 +9,7 @@ namespace WpfApp1
         private User currentuser;
         private Database db;
         public CreditCard creditCard;
+        public bool finished = false;
 
         public CreditCardWindow(User currentUser, Database db)
         {
@@ -42,9 +43,10 @@ namespace WpfApp1
 
                 // Здесь создаем экземпляр CreditCard и добавляем его в базу данных
                 creditCard = new CreditCard(0, db, cvv, cardNumber, paymentSystem, expiryDate, procent);
-                db.AddCreditCard(db.GetUserIdByUsername(currentuser.Username),creditCard);
+                db.AddCreditCard(currentuser.UserId,creditCard);
 
                 MessageBox.Show("Кредитная карта успешно добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                finished = true;
                 this.Close();
             }
             catch (Exception ex)

@@ -9,6 +9,7 @@ namespace WpfApp1
         private User currentuser;
         private Database database;
         public SavingAccount savingAccount;
+        public bool finished = false;
 
         public SavingAccountWindow(User currentUser, Database database)
         {
@@ -32,9 +33,10 @@ namespace WpfApp1
 
                 // Здесь создаем экземпляр SavingAccount и добавляем его в базу данных
                 savingAccount = new SavingAccount(balance, database, procent);
-                database.AddSavingAccount(database.GetUserIdByUsername(currentuser.Username), savingAccount);
+                database.AddSavingAccount(currentuser.UserId, savingAccount);
 
                 MessageBox.Show("Накопительный счет успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                finished = true;
                 this.Close();
             }
             catch (Exception ex)

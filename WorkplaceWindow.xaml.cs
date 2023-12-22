@@ -30,7 +30,7 @@ namespace WpfApp1
         private void LoadAndDisplayAccounts()
         {
             // Получаем счета пользователя из базы данных
-            List<Account> userAccounts = GetAccountsForUser(database.GetUserIdByUsername(currentUser.Username));
+            List<Account> userAccounts = database.GetAccountsForUser(currentUser.UserId);
 
             AccountViewModels.Clear();
             // Создаем коллекцию для отображения в ListBox
@@ -40,11 +40,6 @@ namespace WpfApp1
             }
         }
 
-        // Метод для получения счетов пользователя из базы данных
-        private List<Account> GetAccountsForUser(int userId)
-        {
-            return database.GetAccountsForUser(userId);
-        }
 
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
         {

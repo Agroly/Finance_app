@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApp1
 {
@@ -47,17 +37,20 @@ namespace WpfApp1
                     case "Дебетовая карта":
                         DebitCardWindow debitCardWindow = new DebitCardWindow(currentuser, db);
                         debitCardWindow.ShowDialog();
+                        if(debitCardWindow.finished)
                         AccountViewModels.Add(new AccountViewModel(debitCardWindow.debitCard));
                         break;
 
                     case "Кредитная карта":
                         CreditCardWindow creditCardWindow = new CreditCardWindow(currentuser, db);
                         creditCardWindow.ShowDialog();
+                        if(creditCardWindow.finished)
                         AccountViewModels.Add(new AccountViewModel(creditCardWindow.creditCard));
                         break;
                     case "Накопительный счет":
                         SavingAccountWindow savingAccountWindow = new SavingAccountWindow(currentuser, db);
                         savingAccountWindow.ShowDialog();
+                        if(savingAccountWindow.finished)
                         AccountViewModels.Add(new AccountViewModel(savingAccountWindow.savingAccount));
                         break;
 
