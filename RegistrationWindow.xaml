@@ -6,19 +6,43 @@
         xmlns:local="clr-namespace:WpfApp1"
         Style="{StaticResource {x:Type Window}}"
         mc:Ignorable="d"
-        Title="Регистрация" Height="320" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Регистрация" Height="480" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="20">
             <TextBlock Text="Регистрация" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBox x:Name="txtUsername" Text="Логин" Margin="0,0,0,10" GotFocus="RemoveText"/>
-            <Grid>
-                <PasswordBox x:Name="txtPassword" Margin="0,0,0,10" />
-                <TextBox x:Name="txtPasswordPlaceholder" Text="Пароль" Margin="0,0,0,10" GotFocus="RemoveTextPassword" />
-            </Grid>
-            <TextBox x:Name="txtLastName" Text="Фамилия" Margin="0,0,0,10" GotFocus="RemoveText"/>
-            <TextBox x:Name="txtFirstName" Text="Имя" Margin="0,0,0,10" GotFocus="RemoveText"/>
-            <TextBox x:Name="txtMiddleName" Text="Отчество" Margin="0,0,0,10" GotFocus="RemoveText"/>
-            <TextBox x:Name="txtAge" Text="Возраст" Margin="0,0,0,10" GotFocus="RemoveText"/>
+
+            <StackPanel>
+                <Label Content="Логин"/>
+                <TextBox x:Name="txtUsername" Margin="0,0,0,10" GotFocus="RemoveText"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Пароль"/>
+                <Grid>
+                    <PasswordBox x:Name="txtPassword" Margin="0,0,0,10" />
+                    <TextBox x:Name="txtPasswordPlaceholder" Visibility="Collapsed" Text="Пароль" GotFocus="RemoveTextPassword" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Фамилия"/>
+                <TextBox x:Name="txtLastName" Margin="0,0,0,10" GotFocus="RemoveText"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Имя"/>
+                <TextBox x:Name="txtFirstName" Margin="0,0,0,10" GotFocus="RemoveText"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Отчество"/>
+                <TextBox x:Name="txtMiddleName" Margin="0,0,0,10" GotFocus="RemoveText"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Label Content="Возраст"/>
+                <TextBox x:Name="txtAge" Margin="0,0,0,10" GotFocus="RemoveText"/>
+            </StackPanel>
             <Button Content="Зарегистрироваться" Click="RegisterButton_Click"/>
         </StackPanel>
     </Grid>

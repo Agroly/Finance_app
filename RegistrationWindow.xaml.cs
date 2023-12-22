@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,12 @@ namespace WpfApp1
             TextBox placeholder = (TextBox)sender;
             placeholder.Visibility = Visibility.Collapsed;
             txtPassword.Focus();
+        }
+        private bool IsValidName(string name, bool isLatin)
+        {
+            string regexPattern = isLatin ? @"^[A-Z][a-zA-Z]+$" : @"^[А-ЯЁ][а-яёА-ЯЁ]+$";
+            Regex regex = new Regex(regexPattern);
+            return regex.IsMatch(name); ;
         }
 
 
@@ -63,6 +70,14 @@ namespace WpfApp1
             else
             {
                 MessageBox.Show("Некорректный возраст! Введите числовое значение.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool isLatin = Regex.IsMatch(newUser.LastName, @"[a-zA-Z]");
+
+            if (!IsValidName(newUser.LastName, isLatin) || !IsValidName(newUser.FirstName, isLatin) || !IsValidName(newUser.MiddleName, isLatin))
+            {
+                MessageBox.Show($"ФИО должно содержать только буквы, первая буква должна быть заглавной, и все ФИО должны быть на {(isLatin ? "латинице" : "кириллице")}.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

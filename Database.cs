@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Windows;
 
@@ -158,6 +159,10 @@ namespace WpfApp1
         }
         public bool TransferFunds(Account senderAccount, Account recipientAccount, decimal amount)
         {
+            if (amount < 0) { 
+                MessageBox.Show($"Ошибка при пополнении баланса в базе данных: введите положительное число", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
             // Проверяем, что у отправителя достаточно средств для перевода
             if (senderAccount.Balance >= amount)
             {
@@ -182,34 +187,70 @@ namespace WpfApp1
                     }
                 }
             }
+            else MessageBox.Show($"Перевод невозможен, сумма слишком велика", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Если что-то пошло не так или у отправителя недостаточно средств,
             // возвращаем false
             return false;
         }
+        private bool ContainsNumbers(string input)
+        {
+            return input.Any(char.IsDigit);
+        }
+        private bool UserExists(string username)
+        {
+            string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
+
+            using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Username", username);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
+        }
         public bool RegisterUser(User user)
         {
             try
             {
-                    // Создаем SQL-запрос для вставки нового пользователя
-                    string insertQuery = "INSERT INTO Users (Username, Password, LastName, FirstName, MiddleName, Age) " +
-                                         "VALUES (@Username, @Password, @LastName, @FirstName, @MiddleName, @Age)";
+                // Проверка ФИО на наличие чисел
+                if (ContainsNumbers(user.LastName) || ContainsNumbers(user.FirstName) || ContainsNumbers(user.MiddleName))
+                {
+                    MessageBox.Show("ФИО не должно содержать числа.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                if (UserExists(user.Username))
+                {
+                    MessageBox.Show("Пользователь с таким именем уже существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
 
-                    using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
+                // Создаем SQL-запрос для вставки нового пользователя
+                string insertQuery = "INSERT INTO Users (Username, Password, LastName, FirstName, MiddleName, Age) " +
+                                     "VALUES (@Username, @Password, @LastName, @FirstName, @MiddleName, @Age)";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
+                {
+                    // Передаем параметры в запрос
+                    command.Parameters.AddWithValue("@Username", user.Username);
+                    command.Parameters.AddWithValue("@Password", user.Password);
+                    command.Parameters.AddWithValue("@LastName", user.LastName);
+                    command.Parameters.AddWithValue("@FirstName", user.FirstName);
+                    command.Parameters.AddWithValue("@MiddleName", user.MiddleName);
+                    command.Parameters.AddWithValue("@Age", user.Age);
+
+                    // Выполняем SQL-запрос и возвращаем результат
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        // Передаем параметры в запрос
-                        command.Parameters.AddWithValue("@Username", user.Username);
-                        command.Parameters.AddWithValue("@Password", user.Password);
-                        command.Parameters.AddWithValue("@LastName", user.LastName);
-                        command.Parameters.AddWithValue("@FirstName", user.FirstName);
-                        command.Parameters.AddWithValue("@MiddleName", user.MiddleName);
-                        command.Parameters.AddWithValue("@Age", user.Age);
-
-                        // Выполняем SQL-запрос и возвращаем результат
-                        int rowsAffected = command.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                        
+                        return true;
                     }
+                    else
+                    {
+                        MessageBox.Show("Не удалось вставить пользователя. Возможно, такой пользователь уже существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return false;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -217,7 +258,7 @@ namespace WpfApp1
                 return false;
             }
         }
-       
+
         public void AddDebitCard(int userId, DebitCard account)
         {
             int accountId = AddAccount(userId, account);

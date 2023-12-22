@@ -13,7 +13,7 @@ namespace WpfApp1
         public Account Account { get; set; }
         public AccountViewModel(Account account)
         {
-            Details = $"Баланс: {account.Balance:C2}, Тип счета: {GetAccountTypeName(account.AccountTypeId)}";
+            Details = $"Баланс: {account.Balance:C2}, Тип счета: {GetAccountTypeName(account.AccountTypeId)}, ID счёта: {account.AccountId}";
             Account = account ;
         }
 

@@ -33,18 +33,22 @@ namespace WpfApp1
             // Получаем введенную сумму
             if (decimal.TryParse(txtAmount.Text, out decimal amount))
             {
-                // Вызываем метод для пополнения баланса аккаунта
-                bool success = db.TopUpBalanceByAccount(account.Account.AccountId, amount);
+                if (amount > 0)
+                {
+                    // Вызываем метод для пополнения баланса аккаунта
+                    bool success = db.TopUpBalanceByAccount(account.Account.AccountId, amount);
 
-                if (success)
-                {
-                    MessageBox.Show($"Баланс успешно пополнен на {amount:C2}", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
+                    if (success)
+                    {
+                        MessageBox.Show($"Баланс успешно пополнен на {amount:C2}", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось выполнить операцию. Пожалуйста, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Не удалось выполнить операцию. Пожалуйста, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                else MessageBox.Show("Введите положительное число для пополнения баланса.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

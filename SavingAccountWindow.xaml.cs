@@ -27,9 +27,13 @@ namespace WpfApp1
         {
             try
             {
+                if (!decimal.TryParse(txtProcent.Text, out decimal procent) || procent < 0 || procent > 100)
+                {
+                    MessageBox.Show("Введите корректное значение для процентной ставки (число от 0 до 100).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 // Получаем значения из полей ввода
                 decimal balance = decimal.Parse(txtBalance.Text); // Здесь можно установить начальный баланс
-                decimal procent = decimal.Parse(txtProcent.Text);
 
                 // Здесь создаем экземпляр SavingAccount и добавляем его в базу данных
                 savingAccount = new SavingAccount(balance, database, procent);
